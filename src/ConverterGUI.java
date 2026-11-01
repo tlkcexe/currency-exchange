@@ -18,7 +18,7 @@ public class ConverterGUI extends JFrame {
         setSize(420, 260);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Center the window on screen
-        setLayout(new GridLayout(5, 2, 10, 10));
+        setLayout(new GridLayout(6, 2, 10, 10));
 
         initializeComponents();
     }
@@ -47,7 +47,12 @@ public class ConverterGUI extends JFrame {
         JButton convertButton = new JButton("Convert");
         add(convertButton);
 
-        // 5. Result display
+        // 5. Swap Button
+        add(new JLabel(""));
+        JButton swapButton = new JButton("Swap");
+        add(swapButton);
+
+        // 6. Result display
         add(new JLabel("  Result:"));
         resultLabel = new JLabel("0.00");
         resultLabel.setFont(new Font("Arial", Font.BOLD, 15));
@@ -55,6 +60,19 @@ public class ConverterGUI extends JFrame {
 
         // Add button click listener
         convertButton.addActionListener(e -> handleConversion());
+
+        // Add swap button listener
+        swapButton.addActionListener(e -> {
+            int fromIndex = fromCurrencyBox.getSelectedIndex();
+            int toIndex = toCurrencyBox.getSelectedIndex();
+
+            fromCurrencyBox.setSelectedIndex(toIndex);
+            toCurrencyBox.setSelectedIndex(fromIndex);
+
+            // Convert after swap
+            handleConversion();
+
+        });
     }
 
     private void handleConversion() {
