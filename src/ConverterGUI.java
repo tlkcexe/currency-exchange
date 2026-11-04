@@ -15,10 +15,10 @@ public class ConverterGUI extends JFrame {
 
         // Setup main window properties
         setTitle("Currency Converter");
-        setSize(420, 260);
+        setSize(420, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Center the window on screen
-        setLayout(new GridLayout(6, 2, 10, 10));
+        setLayout(new GridLayout(7, 2, 10, 10));
 
         initializeComponents();
     }
@@ -52,7 +52,12 @@ public class ConverterGUI extends JFrame {
         JButton swapButton = new JButton("Swap");
         add(swapButton);
 
-        // 6. Result display
+        // 6. Clear Button
+        add(new JLabel(""));
+        JButton clearButton = new JButton("Clear");
+        add(clearButton);
+
+        // 7. Result display
         add(new JLabel("  Result:"));
         resultLabel = new JLabel("0.00");
         resultLabel.setFont(new Font("Arial", Font.BOLD, 15));
@@ -72,6 +77,13 @@ public class ConverterGUI extends JFrame {
             // Convert after swap
             handleConversion();
 
+        });
+        // Clear Button listener
+        clearButton.addActionListener(e -> {
+            amountField.setText("");
+            fromCurrencyBox.setSelectedIndex(0);
+            toCurrencyBox.setSelectedIndex(1);
+            resultLabel.setText("0.00");
         });
     }
 
