@@ -14,6 +14,11 @@ public class CurrencyService {
         exchangeRates.put("GBP - British Pound", 0.85);
         exchangeRates.put("JPY - Japanese Yen", 162.50);
         exchangeRates.put("CHF - Swiss Franc", 0.96);
+        exchangeRates.put("CAD - Canadian Dollar", 1.5701);
+        exchangeRates.put("AUD - Australian Dollar", 1.6061);
+        exchangeRates.put("CNY - Chinese Yuan", 7.5177);
+        exchangeRates.put("INR - Indian Rupee", 106.6318);
+        exchangeRates.put("SEK - Swedish Krona", 10.9718);
     }
 
     // Returns the list of available currencies (to be used by the GUI dropdowns)
