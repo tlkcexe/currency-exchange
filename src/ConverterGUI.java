@@ -18,7 +18,7 @@ public class ConverterGUI extends JFrame {
         setSize(420, 300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // Center the window on screen
-        setLayout(new GridLayout(7, 2, 10, 10));
+        setLayout(new GridLayout(8, 2, 10, 10));
 
         initializeComponents();
     }
@@ -57,7 +57,12 @@ public class ConverterGUI extends JFrame {
         JButton clearButton = new JButton("Clear");
         add(clearButton);
 
-        // 7. Result display
+        // 7. Copy Result Button
+        add(new JLabel(""));
+        JButton copyButton = new JButton("Copy Result");
+        add(copyButton);
+
+        // 8. Result display
         add(new JLabel("  Result:"));
         resultLabel = new JLabel("0.00");
         resultLabel.setFont(new Font("Arial", Font.BOLD, 15));
@@ -65,6 +70,22 @@ public class ConverterGUI extends JFrame {
 
         // Add button click listener
         convertButton.addActionListener(e -> handleConversion());
+
+        //Convert when Enter is pressed in the amount field
+        amountField.addActionListener(e -> handleConversion());
+
+        // Automatically convert when currency changes
+        fromCurrencyBox.addActionListener(e -> {
+            if (!amountField.getText().trim().isEmpty()) {
+                handleConversion();
+            }
+        });
+
+        toCurrencyBox.addActionListener(e -> {
+            if (!amountField.getText().trim().isEmpty()) {
+                handleConversion();
+            }
+        });
 
         // Add swap button listener
         swapButton.addActionListener(e -> {
@@ -85,6 +106,21 @@ public class ConverterGUI extends JFrame {
             toCurrencyBox.setSelectedIndex(1);
             resultLabel.setText("0.00");
         });
+
+        // Copy Result Button listener
+        copyButton.addActionListener(e -> {
+            String text = resultLabel.getText();
+            Toolkit.getDefaultToolkit().getSystemClipboard()
+                    .setContents(new java.awt.datatransfer.StringSelection(text), null);
+        });
+
+        //Clear fields when Esc is pressed
+        getRootPane().registerKeyboardAction(
+                e -> clearButton.doClick(),
+                KeyStroke.getKeyStroke("ESCAPE"),
+                JComponent.WHEN_IN_FOCUSED_WINDOW
+        );
+
     }
 
     private void handleConversion() {
